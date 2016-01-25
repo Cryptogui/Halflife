@@ -1,5 +1,5 @@
-import plotly.plotly as py
-import plotly.graph_objs as go
+import plotly
+from plotly.graph_objs import Scatter, Layout
 
 mass1 = 1.0 ##in kg
 halflife = 8.5 ##in minutes
@@ -10,8 +10,8 @@ timerun = 6 ##in minutes
 timesum = 0
 massleft = mass1
 mass2 = 0
-times = ()
-masses = ()
+times = []
+masses = []
 while timesum < timerun:
     times.append(timesum)
     masses.append(massleft)
@@ -19,10 +19,13 @@ while timesum < timerun:
     timesum += timestep
     massleft = (mass1 / 2 ** (timesum / halflife))
 
-trace = go.scatter(
-    x = times,
-    y = masses
-)
+plotly.offline.plot({
 
-data = [trace]
-plot_url = py.plot(data, filename='basic-line')
+"data": [
+    Scatter(x = times, y = masses)
+],
+
+"layout": Layout(
+    title="Sönderfall"
+)
+})
