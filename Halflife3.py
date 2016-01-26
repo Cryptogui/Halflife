@@ -1,6 +1,3 @@
-import plotly
-from plotly.graph_objs import Scatter, Layout
-
 mass1 = 1.0 ##in kg
 halflife = 8.5 ##in minutes
 timestep = 0.1 ##in minutes
@@ -13,19 +10,11 @@ mass2 = 0
 times = []
 masses = []
 while timesum < timerun:
-    times.append(timesum)
+    times.append(round(timesum, timeround))
     masses.append(massleft)
     print (str(round(timesum, timeround)) + ":" + "min" + " " + str(massleft) + ":" + "kg")
     timesum += timestep
     massleft = (mass1 / 2 ** (timesum / halflife))
 
-plotly.offline.plot({
-
-"data": [
-    Scatter(x = times, y = masses)
-],
-
-"layout": Layout(
-    title="Sönderfall"
-)
-})
+print (times)
+print (masses)
